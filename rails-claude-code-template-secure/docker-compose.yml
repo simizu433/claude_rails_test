@@ -1,0 +1,39 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        USERNAME: devuser
+        USER_UID: ${UID:-1000}
+        USER_GID: ${GID:-1000}
+    user: devuser
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - .:/workspace
+    ports:
+      - "3000:3000"
+    environment:
+      HOME: /home/devuser
+      DATABASE_HOST: db
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      BUNDLE_PATH: /workspace/vendor/bundle
+      NPM_CONFIG_PREFIX: /workspace/.npm-global
+      npm_config_registry: https://npm.flatt.tech/
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
