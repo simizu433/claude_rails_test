@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [],
+    "deny": [
+      "Bash(*)",
+      "Read(.env)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/credentials.yml.enc)",
+      "Read(**/master.key)",
+      "Read(config/master.key)",
+      "Edit(.claude-work/**)",
+      "Edit(.npmrc)",
+      "Edit(.yarnrc.yml)"
+    ]
+  }
+}
